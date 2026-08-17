@@ -2,52 +2,239 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CommunityBox from '../components/CommunityBox.astro';
+
+const navCards = [
+  { href: '/what-is-fde', icon: '🎯', title: '什么是FDE', desc: '了解前沿部署工程师的角色定义与职业价值' },
+  { href: '/it-career-path', icon: '🚀', title: 'IT转型路径', desc: 'CIO→CAIO、IT Manager→FDE，两条清晰的进阶路线' },
+  { href: '/salary', icon: '💰', title: '薪酬报告', desc: '2026年FDE/CAIO薪酬数据与趋势分析' },
+  { href: '/cases', icon: '📋', title: '经典案例', desc: '企业AI落地实战案例集' },
+  { href: '/learning-path', icon: '📚', title: '学习路线', desc: '从0到1的系统化学习路径' },
+  { href: '/tech-stack', icon: '⚡', title: '技术栈', desc: 'Agent框架、模型平台、部署运维全栈工具' },
+];
 ---
 <Layout title="AfterAI FDE学院 | AI落地，人才先行">
-  <Navbar /><main>
-    <section class="hero"><div class="hero-container">
-      <span class="hero-badge">前沿部署工程师知识社区</span>
-      <h1>AI落地，<span class="text-amber">人才先行</span></h1>
-      <p class="hero-desc">FDE学院是国内首个专注 Forward Deployment Engineer 的知识平台，帮助IT从业者完成AI时代的职业转型与能力升级。</p>
-      <div class="hero-actions"><a href="/what-is-fde" class="btn-primary">了解 FDE</a><a href="/learning-path" class="btn-secondary">学习路线</a></div>
-    </div></section>
-    <section class="features"><div class="features-container"><div class="feature-grid">
-      <a href="/what-is-fde" class="feature-card"><h3>什么是FDE</h3><p>了解前沿部署工程师的角色定义与职业价值</p></a>
-      <a href="/it-career-path" class="feature-card"><h3>IT转型路径</h3><p>CIO→CAIO、IT Manager→FDE，两条清晰的进阶路线</p></a>
-      <a href="/salary" class="feature-card"><h3>薪酬报告</h3><p>2026年FDE/CAIO薪酬数据</p></a>
-      <a href="/cases" class="feature-card"><h3>经典案例</h3><p>企业AI落地实战案例</p></a>
-      <a href="/learning-path" class="feature-card"><h3>学习路线</h3><p>从0到1的系统化学习路径</p></a>
-      <a href="/tech-stack" class="feature-card"><h3>技术栈</h3><p>Agent框架、模型平台、部署运维全栈</p></a>
-    </div></div></section>
-    <section class="stats"><div class="stats-container">
-      <div class="stat"><span class="stat-number">78%</span><span class="stat-label">企业AI项目需要现场部署工程师</span></div>
-      <div class="stat"><span class="stat-number">$1.6M</span><span class="stat-label">美国CAIO中位总包薪酬</span></div>
-      <div class="stat"><span class="stat-number">3x</span><span class="stat-label">FDE岗位需求年增长率</span></div>
-    </div></section>
-  </main><Footer />
+  <Navbar />
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid-bg"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <span class="hero-badge">前沿部署工程师知识社区</span>
+        <h1>FDE <span class="gradient-text">前沿部署工程师</span></h1>
+        <p class="hero-desc">国内首个专注 Forward Deployment Engineer 的知识平台<br/>帮助IT从业者完成AI时代的职业转型与能力升级</p>
+        <div class="hero-actions">
+          <a href="/what-is-fde" class="btn-primary">了解 FDE</a>
+          <a href="/learning-path" class="btn-secondary">学习路线 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-bar">
+      <div class="stats-container">
+        <div class="stat-item">
+          <span class="stat-number">78%</span>
+          <span class="stat-label">企业AI项目需要现场部署工程师</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number accent-amber">$1.6M</span>
+          <span class="stat-label">美国CAIO中位总包薪酬</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">3x</span>
+          <span class="stat-label">FDE岗位需求年增长率</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Cards -->
+    <section class="nav-section">
+      <div class="section-container">
+        <h2 class="section-title">探索内容</h2>
+        <p class="section-desc">从角色认知到实战落地，系统化掌握FDE核心能力</p>
+        <div class="card-grid">
+          {navCards.map(card => (
+            <a href={card.href} class="nav-card">
+              <div class="card-icon">{card.icon}</div>
+              <h3>{card.title}</h3>
+              <p>{card.desc}</p>
+              <span class="card-arrow">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section id="community" class="community-section">
+      <div class="section-container">
+        <CommunityBox />
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
+
 <style>
-.hero{padding:6rem 1.5rem 4rem;text-align:center;background:linear-gradient(180deg,rgba(255,122,41,.03) 0%,transparent 60%)}
-:global(.dark) .hero{background:linear-gradient(180deg,rgba(255,122,41,.06) 0%,transparent 60%)}
-.hero-container{max-width:800px;margin:0 auto}
-.hero-badge{display:inline-block;padding:.4rem 1rem;background:rgba(255,122,41,.1);color:#FF7A29;border-radius:20px;font-size:.875rem;font-weight:500;margin-bottom:1.5rem}
-.hero h1{font-size:3.5rem;font-weight:700;line-height:1.15;color:#0B0B14;margin-bottom:1.25rem}
-:global(.dark) .hero h1{color:#F5F7FA}.text-amber{color:#FF7A29}
-.hero-desc{font-size:1.125rem;color:#8A93A6;line-height:1.8;margin-bottom:2rem}
-.hero-actions{display:flex;justify-content:center;gap:1rem}
-.btn-primary{padding:.75rem 2rem;background:#FF7A29;color:#fff!important;border-radius:10px;font-weight:600;text-decoration:none}.btn-primary:hover{background:#e56a1a}
-.btn-secondary{padding:.75rem 2rem;background:transparent;color:#0B0B14!important;border:1px solid rgba(138,147,166,.3);border-radius:10px;font-weight:500;text-decoration:none}
-:global(.dark) .btn-secondary{color:#F5F7FA!important}.btn-secondary:hover{border-color:#FF7A29;color:#FF7A29!important}
-.features{padding:4rem 1.5rem}.features-container{max-width:1200px;margin:0 auto}
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.feature-card{padding:2rem;background:#fff;border-radius:16px;border:1px solid rgba(138,147,166,.1);transition:all .2s;text-decoration:none;color:inherit;display:block}
-:global(.dark) .feature-card{background:#161B26;border-color:rgba(138,147,166,.08)}
-.feature-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);border-color:rgba(255,122,41,.3)}
-.feature-card h3{font-size:1.2rem;margin-bottom:.5rem;color:#0B0B14}
-:global(.dark) .feature-card h3{color:#F5F7FA}.feature-card p{color:#8A93A6;font-size:.9rem;line-height:1.6}
-.stats{padding:4rem 1.5rem;background:#0B0B14;border-radius:24px;margin:0 1.5rem}
-.stats-container{max-width:1000px;margin:0 auto;display:flex;justify-content:space-around;text-align:center}
-.stat-number{display:block;font-size:2.5rem;font-weight:700;color:#FF7A29;margin-bottom:.5rem}
-.stat-label{color:#8A93A6;font-size:.9rem}
-@media(max-width:768px){.hero h1{font-size:2.25rem}.hero-actions{flex-direction:column;align-items:center}.feature-grid{grid-template-columns:1fr}.stats-container{flex-direction:column;gap:2rem}.stats{margin:0;border-radius:16px}}
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 8rem 1.5rem 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+  .hero-glow {
+    position: absolute;
+    top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(45, 212, 255, 0.08) 0%, rgba(255, 122, 41, 0.04) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 800px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(45, 212, 255, 0.1);
+    color: #2DD4FF;
+    border: 1px solid rgba(45, 212, 255, 0.2);
+    border-radius: 20px;
+    font-size: 0.875rem; font-weight: 500;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-size: 4rem; font-weight: 700;
+    line-height: 1.15; color: #F5F7FA;
+    margin-bottom: 1.5rem;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #2DD4FF, #FF7A29);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-desc {
+    font-size: 1.2rem;
+    color: rgba(245, 247, 250, 0.6);
+    line-height: 1.8; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; justify-content: center; gap: 1rem; }
+  .btn-primary {
+    padding: 0.85rem 2.2rem;
+    background: #FF7A29; color: #fff !important;
+    border-radius: 10px; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(255, 122, 41, 0.3);
+  }
+  .btn-primary:hover { background: #e56a1a; transform: translateY(-1px); }
+  .btn-secondary {
+    padding: 0.85rem 2.2rem;
+    background: transparent; color: #F5F7FA !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: #2DD4FF; color: #2DD4FF !important; }
+
+  /* Stats Bar */
+  .stats-bar {
+    padding: 3rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .stats-container {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; justify-content: space-around; align-items: center;
+  }
+  .stat-item { text-align: center; }
+  .stat-number {
+    display: block;
+    font-size: 2.8rem; font-weight: 700;
+    color: #2DD4FF; margin-bottom: 0.5rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .stat-number.accent-amber { color: #FF7A29; }
+  .stat-label { color: rgba(245, 247, 250, 0.6); font-size: 0.9rem; }
+  .stat-divider {
+    width: 1px; height: 60px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Navigation Cards */
+  .nav-section { padding: 5rem 1.5rem; }
+  .section-container { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-size: 2rem; font-weight: 700; color: #F5F7FA;
+    text-align: center; margin-bottom: 0.75rem;
+  }
+  .section-desc {
+    text-align: center;
+    color: rgba(245, 247, 250, 0.6);
+    margin-bottom: 3rem; font-size: 1.05rem;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .nav-card {
+    position: relative;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    text-decoration: none; color: inherit;
+    transition: all 0.3s; display: block;
+  }
+  .nav-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(45, 212, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .nav-card h3 {
+    font-size: 1.15rem; font-weight: 600;
+    color: #F5F7FA; margin-bottom: 0.5rem;
+  }
+  .nav-card p {
+    color: rgba(245, 247, 250, 0.6);
+    font-size: 0.9rem; line-height: 1.6;
+  }
+  .card-arrow {
+    position: absolute; top: 2rem; right: 2rem;
+    color: rgba(245, 247, 250, 0.2);
+    font-size: 1.2rem; transition: all 0.3s;
+  }
+  .nav-card:hover .card-arrow { color: #2DD4FF; transform: translateX(4px); }
+
+  /* Community */
+  .community-section { padding: 2rem 1.5rem 0; }
+  .community-section .section-container { max-width: 900px; margin: 0 auto; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 5rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2.5rem; }
+    .hero-desc { font-size: 1rem; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .stats-container { flex-direction: column; gap: 2rem; }
+    .stat-divider { width: 60px; height: 1px; }
+    .stat-number { font-size: 2.2rem; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
 </style>

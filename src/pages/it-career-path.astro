@@ -2,33 +2,230 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const blindSpots = [
+  { title: '模型判断力缺位', desc: '什么场景用GPT-4o、什么时候微调——这些决策直接影响成本和效果。', icon: '🧠' },
+  { title: '不会定义AI场景', desc: '好的AI场景需同时满足：高频重复、数据充足、容错空间合理、价值可量化。', icon: '🎯' },
+  { title: '护不住AI预算', desc: 'AI投入3-6个月见效，CIO需要会讲"AI故事"。', icon: '💼' },
+];
+
+const pathA = [
+  { step: '01', title: '模型素养', desc: 'Transformer、RAG、Fine-tuning、Agent — 建立完整的AI技术认知', color: '#2DD4FF' },
+  { step: '02', title: '场景架构', desc: '识别高价值AI场景，掌握场景评估框架', color: '#2DD4FF' },
+  { step: '03', title: 'AI原生组织', desc: '设计AI时代团队结构，推动组织变革', color: '#2DD4FF' },
+];
+
+const pathB = [
+  { step: '01', title: '工程落地', desc: '亲手搭建AI工作流，从0到1交付项目', color: '#FF7A29' },
+  { step: '02', title: 'Agent开发', desc: 'LangChain / Dify / 多Agent系统开发', color: '#FF7A29' },
+  { step: '03', title: '部署运维', desc: 'Docker / K8s / 监控 — 保障生产环境稳定', color: '#FF7A29' },
+];
+
+const roadmap = [
+  { phase: '0-2年', title: '基础蓄力', items: ['LLM基础', '3-5个AI项目', 'AI场景库'], color: '#2DD4FF' },
+  { phase: '2-4年', title: '落地负责人', items: ['企业级AI项目', 'AI团队', '社区影响力'], color: '#FF7A29' },
+  { phase: '4年+', title: '进阶CXO', items: ['AI战略制定者', '多产品线', '董事会汇报'], color: '#2DD4FF' },
+];
+
+const skills = [
+  { skill: 'Prompt', entry: '基础Prompt', mid: 'System Prompt链', expert: '多轮策略' },
+  { skill: 'RAG', entry: '了解原理', mid: '完整管道', expert: '优化Rerank' },
+  { skill: 'Agent', entry: 'ChatGPT插件', mid: 'LangChain Agent', expert: '多Agent系统' },
+  { skill: '部署', entry: '用过API', mid: '部署开源模型', expert: '推理加速' },
+];
 ---
 <Layout title="IT转型路径 | AfterAI FDE学院">
-  <Navbar /><main class="page-content"><div class="content-container prose">
-<h1>IT人的AI转型路径</h1><p class="subtitle">从CIO到CAIO，从IT Manager到FDE</p>
-<h2>CIO面临的三道盲区</h2><h3>模型判断力缺位</h3><p>什么场景用GPT-4o、什么时候微调——这些决策直接影响成本和效果。</p>
-<h3>不会定义AI场景</h3><p>好的AI场景需同时满足：高频重复、数据充足、容错空间合理、价值可量化。</p>
-<h3>护不住AI预算</h3><p>AI投入3-6个月见效，CIO需要会讲“AI故事”。</p>
-<h2>方向A：CIO → CAIO</h2><ol><li><strong>模型素养</strong>：Transformer、RAG、Fine-tuning、Agent</li><li><strong>场景架构</strong>：识别高价值AI场景</li><li><strong>AI原生组织</strong>：设计AI时代团队结构</li></ol>
-<h2>方向B：IT Manager → FDE</h2><ol><li><strong>工程落地</strong>：亲手搭建AI工作流</li><li><strong>Agent开发</strong>：LangChain/Dify</li><li><strong>部署运维</strong>：Docker/K8s/监控</li></ol>
-<h2>分阶段路线图</h2><h3>0-2年 基础蓄力</h3><ul><li>LLM基础</li><li>3-5个AI项目</li><li>AI场景库</li></ul>
-<h3>2-4年 落地负责人</h3><ul><li>企业级AI项目</li><li>AI团队</li><li>社区影响力</li></ul>
-<h3>4年+ 进阶CXO</h3><ul><li>AI战略制定者</li><li>多产品线</li><li>董事会汇报</li></ul>
-<h2>能力自测表</h2><table><thead><tr><th>能力</th><th>入门</th><th>胜任</th><th>专家</th></tr></thead><tbody>
-<tr><td>Prompt</td><td>基础Prompt</td><td>System Prompt链</td><td>多轮策略</td></tr>
-<tr><td>RAG</td><td>了解原理</td><td>完整管道</td><td>优化Rerank</td></tr>
-<tr><td>Agent</td><td>ChatGPT插件</td><td>LangChain Agent</td><td>多Agent系统</td></tr>
-<tr><td>部署</td><td>用过API</td><td>部署开源模型</td><td>推理加速</td></tr>
-</tbody></table>
-  </div></main><Footer />
+  <Navbar />
+  <main>
+    <section class="page-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="badge">职业转型</span>
+        <h1>IT人的AI<span class="gradient-text">转型路径</span></h1>
+        <p class="subtitle">从CIO到CAIO，从IT Manager到FDE</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="content-container">
+        <!-- Blind Spots -->
+        <h2 class="section-heading">CIO面临的三道盲区</h2>
+        <div class="blind-grid">
+          {blindSpots.map(b => (
+            <div class="blind-card">
+              <div class="blind-icon">{b.icon}</div>
+              <h3>{b.title}</h3>
+              <p>{b.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Two Paths -->
+        <h2 class="section-heading">两条转型方向</h2>
+        <div class="paths-wrapper">
+          <div class="path-block">
+            <div class="path-header">
+              <span class="path-label cyan-label">方向A</span>
+              <h3>CIO → CAIO</h3>
+            </div>
+            <div class="path-steps">
+              {pathA.map(s => (
+                <div class="step-card">
+                  <span class="step-num" style="color: #2DD4FF">{s.step}</span>
+                  <div><h4>{s.title}</h4><p>{s.desc}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="path-block">
+            <div class="path-header">
+              <span class="path-label amber-label">方向B</span>
+              <h3>IT Manager → FDE</h3>
+            </div>
+            <div class="path-steps">
+              {pathB.map(s => (
+                <div class="step-card">
+                  <span class="step-num" style="color: #FF7A29">{s.step}</span>
+                  <div><h4>{s.title}</h4><p>{s.desc}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Roadmap -->
+        <h2 class="section-heading">分阶段路线图</h2>
+        <div class="roadmap-grid">
+          {roadmap.map(r => (
+            <div class="roadmap-card" style="border-top: 3px solid " + r.color>
+              <span class="roadmap-phase" style="color: " + r.color>{r.phase}</span>
+              <h3>{r.title}</h3>
+              <ul>{r.items.map(item => <li>{item}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+
+        <!-- Skills Table -->
+        <h2 class="section-heading">能力自测表</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>能力</th><th>入门</th><th>胜任</th><th>专家</th></tr></thead>
+            <tbody>
+              {skills.map(s => (
+                <tr><td class="skill-name">{s.skill}</td><td>{s.entry}</td><td>{s.mid}</td><td class="expert-cell">{s.expert}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
+
 <style>
-.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
-.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
-:global(.dark) .tech-card{background:#161B26}
-.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
-.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
-@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+  .page-hero {
+    position: relative; padding: 6rem 1.5rem 4rem; text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,122,41,0.06) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .badge {
+    display: inline-block; padding: 0.35rem 1rem;
+    background: rgba(255,122,41,0.1); color: #FF7A29;
+    border: 1px solid rgba(255,122,41,0.2); border-radius: 20px;
+    font-size: 0.8rem; font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 { font-size: 3rem; font-weight: 700; color: #F5F7FA; margin-bottom: 1rem; }
+  .gradient-text { background: linear-gradient(135deg, #FF7A29, #2DD4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-hero .subtitle { color: rgba(245,247,250,0.5); font-size: 1.1rem; }
+
+  .content-section { padding: 2rem 1.5rem 4rem; }
+  .content-container { max-width: 896px; margin: 0 auto; }
+  .section-heading {
+    font-size: 1.5rem; font-weight: 600; color: #F5F7FA;
+    margin: 3rem 0 1.5rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Blind Spots */
+  .blind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .blind-card {
+    padding: 1.75rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; transition: all 0.3s;
+  }
+  .blind-card:hover { border-color: rgba(255,122,41,0.3); transform: translateY(-2px); }
+  .blind-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .blind-card h3 { color: #F5F7FA; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .blind-card p { color: rgba(245,247,250,0.6); font-size: 0.88rem; line-height: 1.6; }
+
+  /* Paths */
+  .paths-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .path-block {
+    padding: 2rem;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+  }
+  .path-header { margin-bottom: 1.5rem; }
+  .path-label {
+    display: inline-block; padding: 0.2rem 0.7rem; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .cyan-label { background: rgba(45,212,255,0.1); color: #2DD4FF; }
+  .amber-label { background: rgba(255,122,41,0.1); color: #FF7A29; }
+  .path-header h3 { color: #F5F7FA; font-size: 1.2rem; }
+  .path-steps { display: flex; flex-direction: column; gap: 1rem; }
+  .step-card {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem; border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem; font-weight: 700; min-width: 36px;
+  }
+  .step-card h4 { color: #F5F7FA; font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .step-card p { color: rgba(245,247,250,0.5); font-size: 0.85rem; }
+
+  /* Roadmap */
+  .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .roadmap-card {
+    padding: 1.75rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+  }
+  .roadmap-phase {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+  }
+  .roadmap-card h3 { color: #F5F7FA; font-size: 1.1rem; margin: 0.5rem 0 0.75rem; }
+  .roadmap-card ul { list-style: none; padding: 0; }
+  .roadmap-card li {
+    color: rgba(245,247,250,0.6); font-size: 0.88rem;
+    padding: 0.3rem 0; padding-left: 1.2rem;
+    position: relative;
+  }
+  .roadmap-card li::before {
+    content: '→'; position: absolute; left: 0;
+    color: rgba(245,247,250,0.3);
+  }
+
+  /* Table */
+  .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  th { background: rgba(45,212,255,0.06); color: #2DD4FF; font-weight: 600; }
+  td { color: rgba(245,247,250,0.7); }
+  .skill-name { color: #F5F7FA; font-weight: 500; }
+  .expert-cell { color: #FF7A29; font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .page-hero h1 { font-size: 2.2rem; }
+    .blind-grid, .roadmap-grid { grid-template-columns: 1fr; }
+    .paths-wrapper { grid-template-columns: 1fr; }
+  }
 </style>

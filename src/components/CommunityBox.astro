@@ -35,7 +35,7 @@
 
 <style>
   .community-box {
-    background: linear-gradient(145deg, #161B26 0%, #0B0B14 100%);
+    background: linear-gradient(145deg, #111827 0%, #0A0E1A 100%);
     color: #F5F7FA;
     border-radius: 20px;
     padding: 3rem 2rem;
@@ -48,10 +48,8 @@
   .community-box::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
     background: radial-gradient(ellipse at 30% 20%, rgba(255, 122, 41, 0.03) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 80%, rgba(45, 212, 255, 0.03) 0%, transparent 50%);
     pointer-events: none;
@@ -61,121 +59,60 @@
     0% { transform: translate(0, 0) rotate(0deg); }
     100% { transform: translate(-5%, -5%) rotate(3deg); }
   }
-  .box-header {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 2rem;
-  }
+  .box-header { position: relative; z-index: 1; margin-bottom: 2rem; }
   .box-header h3 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #FF7A29;
-    margin: 0 0 0.5rem;
-    letter-spacing: 0.5px;
+    font-size: 1.6rem; font-weight: 700;
+    color: #FF7A29; margin: 0 0 0.5rem; letter-spacing: 0.5px;
   }
-  .subtitle {
-    color: #8A93A6;
-    font-size: 0.9rem;
-    margin: 0;
-  }
+  .subtitle { color: rgba(245, 247, 250, 0.6); font-size: 0.9rem; margin: 0; }
   .qr-codes {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    margin: 2rem auto;
-    position: relative;
-    z-index: 1;
-    flex-wrap: wrap;
+    display: flex; justify-content: center; gap: 2.5rem;
+    margin: 2rem auto; position: relative; z-index: 1; flex-wrap: wrap;
   }
   .qr-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
+    position: relative; display: flex; flex-direction: column; align-items: center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
   }
-  .qr-card:hover {
-    transform: translateY(-12px) scale(1.05);
-  }
+  .qr-card:hover { transform: translateY(-12px) scale(1.05); }
   .qr-card::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 16px;
+    content: ''; position: absolute; inset: -2px; border-radius: 16px;
     background: linear-gradient(135deg, rgba(255, 122, 41, 0) 0%, rgba(255, 122, 41, 0) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease, background 0.4s ease;
-    z-index: -1;
+    opacity: 0; transition: opacity 0.4s ease, background 0.4s ease; z-index: -1;
   }
   .qr-card:hover::before {
     opacity: 1;
     background: linear-gradient(135deg, rgba(255, 122, 41, 0.4) 0%, rgba(45, 212, 255, 0.4) 100%);
   }
   .qr-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 180px; height: 180px; border-radius: 50%;
+    filter: blur(40px); opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
   }
-  .qr-card:hover .qr-glow {
-    opacity: 0.6;
-  }
+  .qr-card:hover .qr-glow { opacity: 0.6; }
   .qr-glow-amber { background: radial-gradient(circle, #FF7A29 0%, transparent 70%); }
   .qr-glow-cyan { background: radial-gradient(circle, #2DD4FF 0%, transparent 70%); }
   .qr-glow-green { background: radial-gradient(circle, #07C160 0%, transparent 70%); }
   .qr-inner {
-    background: #fff;
-    border-radius: 14px;
-    padding: 12px;
+    background: #fff; border-radius: 14px; padding: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
-    position: relative;
-    z-index: 1;
+    transition: box-shadow 0.4s ease, transform 0.4s ease; position: relative; z-index: 1;
   }
   .qr-card:hover .qr-inner {
     box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 8px 16px rgba(0,0,0,0.2);
     transform: perspective(800px) rotateX(-5deg) rotateY(3deg);
   }
-  .qr-inner img {
-    width: 140px;
-    height: 140px;
-    object-fit: contain;
-    display: block;
-    border-radius: 8px;
-  }
+  .qr-inner img { width: 140px; height: 140px; object-fit: contain; display: block; border-radius: 8px; }
   .qr-label {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    color: #F5F7FA;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    opacity: 0.9;
+    margin-top: 1rem; font-size: 0.85rem; color: #F5F7FA;
+    font-weight: 500; letter-spacing: 0.3px; opacity: 0.9;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  .qr-card:hover .qr-label {
-    opacity: 1;
-    transform: translateY(2px);
-  }
+  .qr-card:hover .qr-label { opacity: 1; transform: translateY(2px); }
   .hint {
-    position: relative;
-    z-index: 1;
-    color: #8A93A6;
-    font-size: 0.85rem;
-    margin-top: 2rem;
-    margin-bottom: 0;
+    position: relative; z-index: 1;
+    color: rgba(245, 247, 250, 0.6); font-size: 0.85rem; margin-top: 2rem; margin-bottom: 0;
   }
-  .hint strong {
-    color: #2DD4FF;
-    font-weight: 600;
-  }
+  .hint strong { color: #2DD4FF; font-weight: 600; }
   @media (max-width: 768px) {
     .qr-codes { gap: 1.5rem; }
     .qr-inner { padding: 10px; }

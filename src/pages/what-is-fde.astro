@@ -2,26 +2,230 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const roles = [
+  { name: 'CIO', focus: 'IT基础设施', relation: 'FDE的组织保障者', icon: '🏛️' },
+  { name: 'CTO', focus: '技术战略', relation: '为FDE提供技术底座', icon: '🔧' },
+  { name: 'CAIO', focus: 'AI战略', relation: 'FDE的上司或同级协作者', icon: '🧠' },
+  { name: 'FDE', focus: 'AI落地执行', relation: '连接产品与场景的桥梁', icon: '⚡' },
+];
+
+const comparison = [
+  { dimension: '核心职责', traditional: '系统运维与IT管理', fde: 'AI场景落地与部署' },
+  { dimension: '技术栈', traditional: '服务器/网络/数据库', fde: 'LLM/Agent/RAG/MLOps' },
+  { dimension: '工作方式', traditional: '被动响应需求', fde: '主动驻场、48h出原型' },
+  { dimension: '价值产出', traditional: '保障系统稳定', fde: '直接推动业务AI化' },
+  { dimension: '汇报对象', traditional: 'CIO/IT总监', fde: 'CAIO/业务负责人' },
+];
+
+const scenarios = [
+  { time: '09:00', title: '站会', desc: '与业务团队对齐AI项目进展，识别阻塞点' },
+  { time: '10:00', title: '部署调试', desc: '在客户环境调试RAG管道，优化检索准确率' },
+  { time: '14:00', title: '模型对接', desc: '接入新模型API，评估效果与成本权衡' },
+  { time: '16:00', title: '进展汇报', desc: '向CAIO汇报项目ROI与里程碑达成情况' },
+  { time: '17:30', title: '文档整理', desc: '更新部署手册、知识库和场景架构文档' },
+];
 ---
 <Layout title="什么是FDE | AfterAI FDE学院">
-  <Navbar /><main class="page-content"><div class="content-container prose">
-<h1>什么是 FDE</h1><p class="subtitle">Forward Deployment Engineer</p>
-<h2>角色定义</h2><p>FDE（Forward Deployment Engineer，前沿部署工程师）是驻扎在企业AI落地最前线的技术角色。他们把大模型能力转化为企业真正能用的产品、工作流和决策系统。</p>
-<p>这个概念最早由Palantir发扬光大。FDE既懂技术又懂业务，是连接产品与场景的桥梁。</p>
-<h2>与CIO/CTO/CAIO的关系</h2><ul><li><strong>CIO</strong>：管IT基础设施，是FDE的组织保障者</li><li><strong>CTO</strong>：管技术战略，为FDE提供技术底座</li><li><strong>CAIO</strong>：管AI战略，是FDE的上司或同级协作者</li><li><strong>FDE</strong>：AI落地的执行层</li></ul>
-<h2>为什么企业需要FDE</h2><p>企业AI落地出现了“最后一公里”问题：模型能力过剩，但场景定义不足、部署能力不足、组织适配不足。</p>
-<blockquote><p>“企业AI落地需要的不是更多的模型，而是更多的FDE。”</p></blockquote>
-<h2>FDE的一天</h2><p><strong>09:00</strong> 站会 | <strong>10:00</strong> 部署调试 | <strong>14:00</strong> 模型对接 | <strong>16:00</strong> 进展汇报 | <strong>17:30</strong> 文档整理</p>
-<h2>借鉴Palantir + 本土化</h2><p>驻场制、全栈能力、48小时出原型。本土化关键：IT基础差异大、数据合规要求高、组织决策链条长。</p>
-  </div></main><Footer />
+  <Navbar />
+  <main>
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="badge">角色定义</span>
+        <h1>什么是 <span class="cyan">FDE</span></h1>
+        <p class="subtitle">Forward Deployment Engineer · 前沿部署工程师</p>
+        <p class="lead">驻扎在企业AI落地最前线的技术角色——把大模型能力转化为企业真正能用的产品、工作流和决策系统。</p>
+      </div>
+    </section>
+
+    <!-- Definition -->
+    <section class="content-section">
+      <div class="content-container">
+        <div class="highlight-box">
+          <p class="highlight-text">这个概念最早由 Palantir 发扬光大。FDE 既懂技术又懂业务，是连接产品与场景的桥梁。</p>
+        </div>
+
+        <!-- Role Cards -->
+        <h2 class="section-heading">核心角色图谱</h2>
+        <div class="role-grid">
+          {roles.map(role => (
+            <div class:list={['role-card', { 'role-card-fde': role.name === 'FDE' }]}>
+              <div class="role-icon">{role.icon}</div>
+              <h3>{role.name}</h3>
+              <p class="role-focus">{role.focus}</p>
+              <p class="role-relation">{role.relation}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Comparison Table -->
+        <h2 class="section-heading">FDE vs 传统IT角色</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>维度</th><th>传统IT角色</th><th>FDE</th></tr>
+            </thead>
+            <tbody>
+              {comparison.map(row => (
+                <tr><td class="dim-cell">{row.dimension}</td><td>{row.traditional}</td><td class="fde-cell">{row.fde}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Why FDE -->
+        <h2 class="section-heading">为什么企业需要FDE</h2>
+        <p class="body-text">企业AI落地出现了<strong class="cyan-text">"最后一公里"</strong>问题：模型能力过剩，但场景定义不足、部署能力不足、组织适配不足。</p>
+        
+        <blockquote class="quote-block">
+          <p>"企业AI落地需要的不是更多的模型，而是更多的FDE。"</p>
+        </blockquote>
+
+        <!-- Day in Life -->
+        <h2 class="section-heading">FDE的一天</h2>
+        <div class="timeline">
+          {scenarios.map((s, i) => (
+            <div class="timeline-item">
+              <div class="timeline-time">{s.time}</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h4>{s.title}</h4>
+                <p>{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Localization -->
+        <h2 class="section-heading">借鉴 Palantir + 本土化</h2>
+        <div class="insight-grid">
+          <div class="insight-card">
+            <h4>🏕️ 驻场制</h4>
+            <p>深入客户现场，理解真实业务场景</p>
+          </div>
+          <div class="insight-card">
+            <h4>🔧 全栈能力</h4>
+            <p>从模型到部署，端到端交付</p>
+          </div>
+          <div class="insight-card">
+            <h4>⚡ 48h出原型</h4>
+            <p>快速验证AI场景的可行性</p>
+          </div>
+        </div>
+        <p class="body-text" style="margin-top:1.5rem">本土化关键：IT基础差异大、数据合规要求高、组织决策链条长。</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
+
 <style>
-.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
-.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
-:global(.dark) .tech-card{background:#161B26}
-.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
-.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
-@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+  .page-hero {
+    position: relative; padding: 6rem 1.5rem 4rem; text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(45, 212, 255, 0.08) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .badge {
+    display: inline-block; padding: 0.35rem 1rem;
+    background: rgba(45, 212, 255, 0.1); color: #2DD4FF;
+    border: 1px solid rgba(45, 212, 255, 0.2); border-radius: 20px;
+    font-size: 0.8rem; font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 { font-size: 3rem; font-weight: 700; color: #F5F7FA; margin-bottom: 1rem; }
+  .cyan { color: #2DD4FF; }
+  .page-hero .subtitle { color: rgba(245,247,250,0.5); font-size: 1.1rem; margin-bottom: 1.5rem; }
+  .lead { color: rgba(245,247,250,0.7); font-size: 1.1rem; line-height: 1.8; }
+
+  .content-section { padding: 2rem 1.5rem 4rem; }
+  .content-container { max-width: 896px; margin: 0 auto; }
+
+  .highlight-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px; padding: 2rem; margin-bottom: 3rem;
+  }
+  .highlight-text { color: rgba(245,247,250,0.8); font-size: 1.05rem; line-height: 1.8; }
+
+  .section-heading {
+    font-size: 1.5rem; font-weight: 600; color: #F5F7FA;
+    margin: 3rem 0 1.5rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .body-text { color: rgba(245,247,250,0.7); font-size: 1rem; line-height: 1.8; }
+  .cyan-text { color: #2DD4FF; }
+
+  /* Role Cards */
+  .role-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .role-card {
+    padding: 1.5rem; text-align: center;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; transition: all 0.3s;
+  }
+  .role-card:hover { border-color: rgba(45,212,255,0.2); transform: translateY(-2px); }
+  .role-card-fde { border-color: rgba(45,212,255,0.3); background: rgba(45,212,255,0.05); }
+  .role-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .role-card h3 { color: #F5F7FA; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .role-focus { color: #2DD4FF; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .role-relation { color: rgba(245,247,250,0.5); font-size: 0.8rem; }
+
+  /* Table */
+  .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  th { background: rgba(45,212,255,0.06); color: #2DD4FF; font-weight: 600; }
+  td { color: rgba(245,247,250,0.7); }
+  .dim-cell { color: #F5F7FA; font-weight: 500; }
+  .fde-cell { color: #2DD4FF; }
+
+  /* Quote */
+  .quote-block {
+    margin: 2rem 0; padding: 2rem;
+    background: rgba(45,212,255,0.04);
+    border-left: 4px solid #2DD4FF;
+    border-radius: 0 12px 12px 0;
+  }
+  .quote-block p {
+    font-size: 1.25rem; font-style: italic;
+    color: #F5F7FA; line-height: 1.6;
+  }
+
+  /* Timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: flex; align-items: flex-start; gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .timeline-time {
+    min-width: 60px; font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: #FF7A29;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #2DD4FF; margin-top: 6px; flex-shrink: 0;
+  }
+  .timeline-content h4 { color: #F5F7FA; font-size: 1rem; margin-bottom: 0.25rem; }
+  .timeline-content p { color: rgba(245,247,250,0.5); font-size: 0.9rem; }
+
+  /* Insight Grid */
+  .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .insight-card {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; transition: all 0.3s;
+  }
+  .insight-card:hover { border-color: rgba(255,122,41,0.3); }
+  .insight-card h4 { color: #F5F7FA; font-size: 1rem; margin-bottom: 0.5rem; }
+  .insight-card p { color: rgba(245,247,250,0.5); font-size: 0.85rem; line-height: 1.6; }
+
+  @media (max-width: 768px) {
+    .page-hero h1 { font-size: 2.2rem; }
+    .role-grid { grid-template-columns: repeat(2, 1fr); }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
 </style>

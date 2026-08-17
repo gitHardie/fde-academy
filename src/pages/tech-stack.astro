@@ -2,23 +2,128 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const categories = [
+  {
+    title: '模型层',
+    icon: '🧠',
+    color: '#2DD4FF',
+    items: [
+      { name: '商用模型', desc: 'GPT-4o / Claude / Gemini / Qwen / DeepSeek' },
+      { name: '开源模型', desc: 'Llama 3 / Mistral / Qwen2 / GLM-4' },
+      { name: '模型平台', desc: 'OpenAI / 百度千帆 / 阿里百炼 / 火山引擎' },
+    ],
+  },
+  {
+    title: '框架层',
+    icon: '🔗',
+    color: '#FF7A29',
+    items: [
+      { name: 'Agent框架', desc: 'LangChain / LlamaIndex / Dify / Coze / AutoGen' },
+      { name: '向量数据库', desc: 'Milvus / Pinecone / Weaviate / Chroma' },
+      { name: '工作流编排', desc: 'Dify / n8n / LangGraph' },
+    ],
+  },
+  {
+    title: '部署层',
+    icon: '🚀',
+    color: '#2DD4FF',
+    items: [
+      { name: '推理框架', desc: 'vLLM / TGI / Ollama / llama.cpp' },
+      { name: '容器编排', desc: 'Docker / Kubernetes' },
+      { name: '监控运维', desc: 'LangSmith / LangFuse / Prometheus / Grafana' },
+    ],
+  },
+  {
+    title: '应用层',
+    icon: '💻',
+    color: '#FF7A29',
+    items: [
+      { name: '后端', desc: 'Python / Node.js / Go' },
+      { name: '前端', desc: 'React / Vue / Streamlit' },
+      { name: '数据存储', desc: 'PostgreSQL / Redis / Elasticsearch' },
+    ],
+  },
+];
 ---
 <Layout title="技术栈 | AfterAI FDE学院">
-  <Navbar /><main class="page-content"><div class="content-container prose">
-<h1>FDE技术栈</h1><p class="subtitle">前沿部署工程师的工具箱</p>
-<h2>模型层</h2><div class="tech-grid"><div class="tech-card"><h3>商用模型</h3><p>GPT-4o / Claude / Gemini / Qwen / DeepSeek</p></div><div class="tech-card"><h3>开源模型</h3><p>Llama 3 / Mistral / Qwen2 / GLM-4</p></div><div class="tech-card"><h3>模型平台</h3><p>OpenAI / 百度千帆 / 阿里百炼 / 火山引擎</p></div></div>
-<h2>框架层</h2><div class="tech-grid"><div class="tech-card"><h3>Agent框架</h3><p>LangChain / LlamaIndex / Dify / Coze / AutoGen</p></div><div class="tech-card"><h3>向量数据库</h3><p>Milvus / Pinecone / Weaviate / Chroma</p></div><div class="tech-card"><h3>工作流</h3><p>Dify / n8n / LangGraph</p></div></div>
-<h2>部署层</h2><div class="tech-grid"><div class="tech-card"><h3>推理框架</h3><p>vLLM / TGI / Ollama / llama.cpp</p></div><div class="tech-card"><h3>容器</h3><p>Docker / Kubernetes</p></div><div class="tech-card"><h3>监控</h3><p>LangSmith / LangFuse / Prometheus / Grafana</p></div></div>
-<h2>应用层</h2><div class="tech-grid"><div class="tech-card"><h3>后端</h3><p>Python / Node.js / Go</p></div><div class="tech-card"><h3>前端</h3><p>React / Vue / Streamlit</p></div><div class="tech-card"><h3>数据</h3><p>PostgreSQL / Redis / Elasticsearch</p></div></div>
-  </div></main><Footer />
+  <Navbar />
+  <main>
+    <section class="page-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="badge">工具箱</span>
+        <h1>FDE<span class="gradient-text">技术栈</span></h1>
+        <p class="subtitle">前沿部署工程师的完整技术武器库</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="content-container">
+        {categories.map(cat => (
+          <div class="category-block">
+            <div class="category-header">
+              <span class="cat-icon">{cat.icon}</span>
+              <h2 style="color: " + cat.color>{cat.title}</h2>
+            </div>
+            <div class="tech-grid">
+              {cat.items.map(item => (
+                <div class="tech-card" style="border-top: 2px solid " + cat.color>
+                  <h3>{item.name}</h3>
+                  <p>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
+
 <style>
-.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
-.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
-:global(.dark) .tech-card{background:#161B26}
-.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
-.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
-@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+  .page-hero {
+    position: relative; padding: 6rem 1.5rem 4rem; text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,122,41,0.06) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .badge {
+    display: inline-block; padding: 0.35rem 1rem;
+    background: rgba(45,212,255,0.1); color: #2DD4FF;
+    border: 1px solid rgba(45,212,255,0.2); border-radius: 20px;
+    font-size: 0.8rem; font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 { font-size: 3rem; font-weight: 700; color: #F5F7FA; margin-bottom: 1rem; }
+  .gradient-text { background: linear-gradient(135deg, #FF7A29, #2DD4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-hero .subtitle { color: rgba(245,247,250,0.5); font-size: 1.1rem; }
+
+  .content-section { padding: 2rem 1.5rem 4rem; }
+  .content-container { max-width: 896px; margin: 0 auto; }
+
+  .category-block { margin-bottom: 3rem; }
+  .category-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .cat-icon { font-size: 1.5rem; }
+  .category-header h2 { font-size: 1.4rem; font-weight: 600; }
+
+  .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .tech-card {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0 0 12px 12px; transition: all 0.3s;
+  }
+  .tech-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+  .tech-card h3 { color: #F5F7FA; font-size: 1rem; margin-bottom: 0.5rem; }
+  .tech-card p { color: rgba(245,247,250,0.5); font-size: 0.85rem; line-height: 1.6; }
+
+  @media (max-width: 768px) {
+    .page-hero h1 { font-size: 2.2rem; }
+    .tech-grid { grid-template-columns: 1fr; }
+  }
 </style>

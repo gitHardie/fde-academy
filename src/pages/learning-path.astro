@@ -2,24 +2,149 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const phases = [
+  {
+    phase: '第一阶段', time: '1-3月', level: '初级',
+    title: 'AI基础',
+    color: '#2DD4FF',
+    skills: ['LLM原理（Transformer、注意力机制）', 'Prompt Engineering', '主流模型对比（GPT-4o / Claude / Qwen）', '第一个AI应用（ChatBot / 摘要工具）'],
+    goal: '建立AI认知，能独立完成简单AI应用',
+  },
+  {
+    phase: '第二阶段', time: '3-6月', level: '中级',
+    title: '工程能力',
+    color: '#FF7A29',
+    skills: ['RAG系统搭建', 'Agent开发（LangChain / Dify）', 'API开发与集成', '前端基础（React / Streamlit）'],
+    goal: '具备完整的AI工程开发能力',
+  },
+  {
+    phase: '第三阶段', time: '6-9月', level: '中高级',
+    title: '部署运维',
+    color: '#2DD4FF',
+    skills: ['Docker容器化', 'Kubernetes编排', '模型部署（vLLM / Ollama）', '监控体系（LangSmith / Prometheus）'],
+    goal: '能独立完成AI系统的生产环境部署',
+  },
+  {
+    phase: '第四阶段', time: '9-12月', level: '高级',
+    title: '场景架构',
+    color: '#FF7A29',
+    skills: ['场景识别与评估', 'ROI量化模型', '多Agent系统设计', '安全合规与数据治理'],
+    goal: '具备AI场景架构能力，能主导企业级项目',
+  },
+  {
+    phase: '第五阶段', time: '12月+', level: '专家',
+    title: '进阶领导力',
+    color: '#2DD4FF',
+    skills: ['AI战略规划', '团队管理与培养', '行业深耕（垂直领域专家）', '社区影响力建设'],
+    goal: '成为AI转型的核心推动者',
+  },
+];
 ---
 <Layout title="学习路线 | AfterAI FDE学院">
-  <Navbar /><main class="page-content"><div class="content-container prose">
-<h1>FDE学习路线</h1><p class="subtitle">从0到1的系统化成长路径</p>
-<h2>第一阶段：AI基础（1-3月）</h2><ul><li>LLM原理</li><li>Prompt Engineering</li><li>主流模型</li><li>第一个AI应用</li></ul>
-<h2>第二阶段：工程能力（3-6月）</h2><ul><li>RAG系统</li><li>Agent开发</li><li>API开发</li><li>前端基础</li></ul>
-<h2>第三阶段：部署运维（6-9月）</h2><ul><li>Docker</li><li>Kubernetes</li><td>模型部署</li><li>监控</li></ul>
-<h2>第四阶段：场景架构（9-12月）</h2><ul><li>场景识别</li><li>ROI评估</li><li>多Agent系统</li><li>安全合规</li></ul>
-<h2>第五阶段：进阶（12月+）</h2><ul><li>AI战略</li><li>团队管理</li><li>行业深耕</li><li>社区影响力</li></ul>
-  </div></main><Footer />
+  <Navbar />
+  <main>
+    <section class="page-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="badge">成长路径</span>
+        <h1>FDE<span class="gradient-text">学习路线</span></h1>
+        <p class="subtitle">从0到1的系统化成长路径</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="content-container">
+        <div class="phase-list">
+          {phases.map((p, i) => (
+            <div class="phase-card" style="border-left: 4px solid " + p.color>
+              <div class="phase-header">
+                <div class="phase-meta">
+                  <span class="phase-tag" style="color: " + p.color>{p.phase}</span>
+                  <span class="phase-time">{p.time}</span>
+                </div>
+                <span class="phase-level" style="background: " + p.color + "20; color: " + p.color>{p.level}</span>
+              </div>
+              <h2>{p.title}</h2>
+              <div class="skill-list">
+                {p.skills.map(skill => (
+                  <div class="skill-item">
+                    <span class="skill-dot" style="background: " + p.color></span>
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+              <p class="phase-goal">
+                <span class="goal-label">目标：</span>{p.goal}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
+
 <style>
-.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
-.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
-:global(.dark) .tech-card{background:#161B26}
-.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
-.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
-@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+  .page-hero {
+    position: relative; padding: 6rem 1.5rem 4rem; text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(45,212,255,0.06) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .badge {
+    display: inline-block; padding: 0.35rem 1rem;
+    background: rgba(255,122,41,0.1); color: #FF7A29;
+    border: 1px solid rgba(255,122,41,0.2); border-radius: 20px;
+    font-size: 0.8rem; font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 { font-size: 3rem; font-weight: 700; color: #F5F7FA; margin-bottom: 1rem; }
+  .gradient-text { background: linear-gradient(135deg, #2DD4FF, #FF7A29); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-hero .subtitle { color: rgba(245,247,250,0.5); font-size: 1.1rem; }
+
+  .content-section { padding: 2rem 1.5rem 4rem; }
+  .content-container { max-width: 896px; margin: 0 auto; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .phase-card {
+    padding: 2rem 2rem 1.5rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0 14px 14px 0; transition: all 0.3s;
+  }
+  .phase-card:hover { background: rgba(255,255,255,0.05); }
+  .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+  .phase-meta { display: flex; align-items: center; gap: 1rem; }
+  .phase-tag { font-weight: 600; font-size: 0.9rem; }
+  .phase-time {
+    color: rgba(245,247,250,0.4); font-size: 0.85rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .phase-level {
+    padding: 0.2rem 0.7rem; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .phase-card h2 { color: #F5F7FA; font-size: 1.4rem; margin-bottom: 1.25rem; }
+
+  .skill-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
+  .skill-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(245,247,250,0.7); font-size: 0.95rem;
+  }
+  .skill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  
+  .phase-goal {
+    padding: 0.85rem 1.25rem;
+    background: rgba(255,255,255,0.03); border-radius: 8px;
+    color: rgba(245,247,250,0.6); font-size: 0.9rem;
+  }
+  .goal-label { color: #F5F7FA; font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .page-hero h1 { font-size: 2.2rem; }
+    .phase-card { padding: 1.5rem; }
+    .phase-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
 </style>
