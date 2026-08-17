@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="技术栈 | AfterAI FDE学院">
+  <Navbar /><main class="page-content"><div class="content-container prose">
+<h1>FDE技术栈</h1><p class="subtitle">前沿部署工程师的工具箱</p>
+<h2>模型层</h2><div class="tech-grid"><div class="tech-card"><h3>商用模型</h3><p>GPT-4o / Claude / Gemini / Qwen / DeepSeek</p></div><div class="tech-card"><h3>开源模型</h3><p>Llama 3 / Mistral / Qwen2 / GLM-4</p></div><div class="tech-card"><h3>模型平台</h3><p>OpenAI / 百度千帆 / 阿里百炼 / 火山引擎</p></div></div>
+<h2>框架层</h2><div class="tech-grid"><div class="tech-card"><h3>Agent框架</h3><p>LangChain / LlamaIndex / Dify / Coze / AutoGen</p></div><div class="tech-card"><h3>向量数据库</h3><p>Milvus / Pinecone / Weaviate / Chroma</p></div><div class="tech-card"><h3>工作流</h3><p>Dify / n8n / LangGraph</p></div></div>
+<h2>部署层</h2><div class="tech-grid"><div class="tech-card"><h3>推理框架</h3><p>vLLM / TGI / Ollama / llama.cpp</p></div><div class="tech-card"><h3>容器</h3><p>Docker / Kubernetes</p></div><div class="tech-card"><h3>监控</h3><p>LangSmith / LangFuse / Prometheus / Grafana</p></div></div>
+<h2>应用层</h2><div class="tech-grid"><div class="tech-card"><h3>后端</h3><p>Python / Node.js / Go</p></div><div class="tech-card"><h3>前端</h3><p>React / Vue / Streamlit</p></div><div class="tech-card"><h3>数据</h3><p>PostgreSQL / Redis / Elasticsearch</p></div></div>
+  </div></main><Footer />
+</Layout>
+<style>
+.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
+.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
+:global(.dark) .tech-card{background:#161B26}
+.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
+.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+</style>

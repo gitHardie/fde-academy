@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="什么是FDE | AfterAI FDE学院">
+  <Navbar /><main class="page-content"><div class="content-container prose">
+<h1>什么是 FDE</h1><p class="subtitle">Forward Deployment Engineer</p>
+<h2>角色定义</h2><p>FDE（Forward Deployment Engineer，前沿部署工程师）是驻扎在企业AI落地最前线的技术角色。他们把大模型能力转化为企业真正能用的产品、工作流和决策系统。</p>
+<p>这个概念最早由Palantir发扬光大。FDE既懂技术又懂业务，是连接产品与场景的桥梁。</p>
+<h2>与CIO/CTO/CAIO的关系</h2><ul><li><strong>CIO</strong>：管IT基础设施，是FDE的组织保障者</li><li><strong>CTO</strong>：管技术战略，为FDE提供技术底座</li><li><strong>CAIO</strong>：管AI战略，是FDE的上司或同级协作者</li><li><strong>FDE</strong>：AI落地的执行层</li></ul>
+<h2>为什么企业需要FDE</h2><p>企业AI落地出现了“最后一公里”问题：模型能力过剩，但场景定义不足、部署能力不足、组织适配不足。</p>
+<blockquote><p>“企业AI落地需要的不是更多的模型，而是更多的FDE。”</p></blockquote>
+<h2>FDE的一天</h2><p><strong>09:00</strong> 站会 | <strong>10:00</strong> 部署调试 | <strong>14:00</strong> 模型对接 | <strong>16:00</strong> 进展汇报 | <strong>17:30</strong> 文档整理</p>
+<h2>借鉴Palantir + 本土化</h2><p>驻场制、全栈能力、48小时出原型。本土化关键：IT基础差异大、数据合规要求高、组织决策链条长。</p>
+  </div></main><Footer />
+</Layout>
+<style>
+.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
+.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
+:global(.dark) .tech-card{background:#161B26}
+.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
+.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+</style>

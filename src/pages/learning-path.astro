@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="学习路线 | AfterAI FDE学院">
+  <Navbar /><main class="page-content"><div class="content-container prose">
+<h1>FDE学习路线</h1><p class="subtitle">从0到1的系统化成长路径</p>
+<h2>第一阶段：AI基础（1-3月）</h2><ul><li>LLM原理</li><li>Prompt Engineering</li><li>主流模型</li><li>第一个AI应用</li></ul>
+<h2>第二阶段：工程能力（3-6月）</h2><ul><li>RAG系统</li><li>Agent开发</li><li>API开发</li><li>前端基础</li></ul>
+<h2>第三阶段：部署运维（6-9月）</h2><ul><li>Docker</li><li>Kubernetes</li><td>模型部署</li><li>监控</li></ul>
+<h2>第四阶段：场景架构（9-12月）</h2><ul><li>场景识别</li><li>ROI评估</li><li>多Agent系统</li><li>安全合规</li></ul>
+<h2>第五阶段：进阶（12月+）</h2><ul><li>AI战略</li><li>团队管理</li><li>行业深耕</li><li>社区影响力</li></ul>
+  </div></main><Footer />
+</Layout>
+<style>
+.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
+.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
+:global(.dark) .tech-card{background:#161B26}
+.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
+.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+</style>

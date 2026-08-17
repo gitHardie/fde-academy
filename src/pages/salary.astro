@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="薪酬报告 | AfterAI FDE学院">
+  <Navbar /><main class="page-content"><div class="content-container prose">
+<h1>2026 FDE/CAIO 薪酬报告</h1><p class="subtitle">AI人才薪酬分析</p>
+<h2>国内薪酬（按城市）</h2><table><thead><tr><th>城市</th><th>FDE年薪</th><th>CAIO年薪</th></tr></thead><tbody>
+<tr><td>北京</td><td>50-120万</td><td>120-300万</td></tr><tr><td>上海</td><td>45-110万</td><td>110-280万</td></tr>
+<tr><td>深圳</td><td>45-100万</td><td>100-260万</td></tr><tr><td>广州</td><td>35-80万</td><td>80-200万</td></tr>
+<tr><td>杭州</td><td>40-90万</td><td>90-220万</td></tr><tr><td>成都</td><td>30-70万</td><td>70-160万</td></tr>
+</tbody></table>
+<h2>国内薪酬（按行业）</h2><table><thead><tr><th>行业</th><th>FDE</th><th>CAIO</th></tr></thead><tbody>
+<tr><td>互联网</td><td>50-120万</td><td>120-300万</td></tr><tr><td>金融</td><td>45-100万</td><td>100-250万</td></tr>
+<tr><td>制造</td><td>35-80万</td><td>80-180万</td></tr><tr><td>咨询</td><td>40-90万</td><td>90-200万</td></tr></tbody></table>
+<h2>海外对标</h2><ul><li>美国CAIO中位总包：$1.6M</li><li>Base薪酬：$250K-$450K</li><li>顶级企业总包可达$2M+</li></ul>
+<h2>热门需求</h2><ul><li>Agent开发 +300%</li><li>AI产品经理 +200%</li><li>AI基础设施 +150%</li><li>AI安全 +180%</li></ul>
+<h2>趋势预测</h2><ol><li>FDE薪酬继续上涨15-20%</li><li>远程FDE兴起</li><li>证书价值提升10-20%</li><li>自由FDE日薪5000-15000元</li></ol>
+  </div></main><Footer />
+</Layout>
+<style>
+.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
+.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
+:global(.dark) .tech-card{background:#161B26}
+.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
+.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="经典案例 | AfterAI FDE学院">
+  <Navbar /><main class="page-content"><div class="content-container prose">
+<h1>经典案例</h1><p class="subtitle">企业AI落地实战案例集</p>
+<h2>某银行智能风控Agent</h2><p>每天10,000+笔交易审核。FDE搭建了多Agent协作系统+RAG管道。审核效率提升4倍，误判率下降60%，年省800万。</p>
+<h2>某制造企业智能质检</h2><p>漏检率3%，8名质检员。FDE驻场梳理17类缺陷，搭建视觉+LLM混合系统。漏检率降至0.3%，ROI 4个月回正。</p>
+<h2>某咨询公司知识助手</h2><p>100+顾问，报告撰写卓35%工时。FDE构建知识库RAG+研究Agent。报告时间-50%，满意度+15%。</p>
+  </div></main><Footer />
+</Layout>
+<style>
+.page-content{padding:3rem 1.5rem;min-height:60vh}.content-container{max-width:768px;margin:0 auto}
+.subtitle{font-size:1.125rem;color:#8A93A6;margin-bottom:2rem}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tech-card{padding:1.25rem;background:#fff;border-radius:12px;border:1px solid rgba(138,147,166,.1)}
+:global(.dark) .tech-card{background:#161B26}
+.tech-card h3{font-size:.95rem;color:#FF7A29;margin-bottom:.5rem}
+.tech-card p{font-size:.85rem;color:#8A93A6;line-height:1.6}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr}}
+</style>
