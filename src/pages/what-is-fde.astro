@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CommunityBox from '../components/CommunityBox.astro';
 
 const roles = [
   { name: 'CIO', focus: 'IT基础设施', relation: 'FDE的组织保障者', icon: '🏛️' },
@@ -117,7 +118,9 @@ const scenarios = [
         <p class="body-text" style="margin-top:1.5rem">本土化关键：IT基础差异大、数据合规要求高、组织决策链条长。</p>
       </div>
     </section>
-  </main>
+  
+<section class="cms" id="community"><div class="cc"><CommunityBox /></div></section>
+</main>
   <Footer />
 </Layout>
 
@@ -228,4 +231,5 @@ const scenarios = [
     .role-grid { grid-template-columns: repeat(2, 1fr); }
     .insight-grid { grid-template-columns: 1fr; }
   }
+.cms{padding:2rem 1.5rem 0}.cms .cc{max-width:896px;margin:0 auto}
 </style>

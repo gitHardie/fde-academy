@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CommunityBox from '../components/CommunityBox.astro';
 
 const categories = [
   {
@@ -78,7 +79,9 @@ const categories = [
         ))}
       </div>
     </section>
-  </main>
+  
+<section class="cms" id="community"><div class="cc"><CommunityBox /></div></section>
+</main>
   <Footer />
 </Layout>
 
@@ -126,4 +129,5 @@ const categories = [
     .page-hero h1 { font-size: 2.2rem; }
     .tech-grid { grid-template-columns: 1fr; }
   }
+.cms{padding:2rem 1.5rem 0}.cms .cc{max-width:896px;margin:0 auto}
 </style>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CommunityBox from '../components/CommunityBox.astro';
 
 const blindSpots = [
   { title: '模型判断力缺位', desc: '什么场景用GPT-4o、什么时候微调——这些决策直接影响成本和效果。', icon: '🧠' },
@@ -119,7 +120,9 @@ const skills = [
         </div>
       </div>
     </section>
-  </main>
+  
+<section class="cms" id="community"><div class="cc"><CommunityBox /></div></section>
+</main>
   <Footer />
 </Layout>
 
@@ -228,4 +231,5 @@ const skills = [
     .blind-grid, .roadmap-grid { grid-template-columns: 1fr; }
     .paths-wrapper { grid-template-columns: 1fr; }
   }
+.cms{padding:2rem 1.5rem 0}.cms .cc{max-width:896px;margin:0 auto}
 </style>

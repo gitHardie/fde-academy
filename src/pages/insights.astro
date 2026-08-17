@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CommunityBox from '../components/CommunityBox.astro';
+const salaryData = [
+  { city: '北京', fde: '50-120万', caio: '120-300万' },{ city: '上海', fde: '45-110万', caio: '110-280万' },
+  { city: '深圳', fde: '45-100万', caio: '100-260万' },{ city: '广州', fde: '35-80万', caio: '80-200万' },
+  { city: '杭州', fde: '40-90万', caio: '90-220万' },{ city: '成都', fde: '30-70万', caio: '70-160万' },
+];
+const industryData = [
+  { industry: '互联网', fde: '50-120万', caio: '120-300万' },{ industry: '金融', fde: '45-100万', caio: '100-250万' },
+  { industry: '制造', fde: '35-80万', caio: '80-180万' },{ industry: '咨询', fde: '40-90万', caio: '90-200万' },
+];
+const trends = [
+  { value: '+300%', label: 'Agent开发需求增长' },{ value: '+200%', label: 'AI产品经理需求增长' },
+  { value: '+150%', label: 'AI基础设施需求增长' },{ value: '$1.6M', label: '美国CAIO中位总包' },
+];
+const forecast = ['FDE薪酬预计继续上涨15-20%','远程FDE模式兴起，跨地域部署成为常态','AI认证证书价值提升10-20%','自由FDE日薪5,000-15,000元'];
+const phases = [
+  { phase:'第一阶段',time:'1-3月',level:'初级',title:'AI基础',color:'#2DD4FF',skills:['LLM原理（Transformer、注意力机制）','Prompt Engineering','主流模型对比（GPT-4o / Claude / Qwen）','第一个AI应用（ChatBot / 摘要工具）'],goal:'建立AI认知，能独立完成简单AI应用' },
+  { phase:'第二阶段',time:'3-6月',level:'中级',title:'工程能力',color:'#FF7A29',skills:['RAG系统搭建','Agent开发（LangChain / Dify）','API开发与集成','前端基础（React / Streamlit）'],goal:'具备完整的AI工程开发能力' },
+  { phase:'第三阶段',time:'6-9月',level:'中高级',title:'部署运维',color:'#2DD4FF',skills:['Docker容器化','Kubernetes编排','模型部署（vLLM / Ollama）','监控体系（LangSmith / Prometheus）'],goal:'能独立完成AI系统的生产环境部署' },
+  { phase:'第四阶段',time:'9-12月',level:'高级',title:'场景架构',color:'#FF7A29',skills:['场景识别与评估','ROI量化模型','多Agent系统设计','安全合规与数据治理'],goal:'具备AI场景架构能力，能主导企业级项目' },
+  { phase:'第五阶段',time:'12月+',level:'专家',title:'进阶领导力',color:'#2DD4FF',skills:['AI战略规划','团队管理与培养','行业深耕（垂直领域专家）','社区影响力建设'],goal:'成为AI转型的核心推动者' },
+];
+---
+<Layout title="行业洞察 | AfterAI FDE学院">
+<Navbar /><main>
+  <section class="page-hero"><div class="hero-bg"></div><div class="hero-content"><span class="badge">行业洞察</span><h1>FDE <span class="gradient-text">行业洞察</span></h1><p class="subtitle">薪酬数据、行业研报与系统化学习路径</p></div></section>
+  <section class="cs"><div class="cc"><div class="stat-hl">{trends.map(t => (<div class="sc"><span class="sv">{t.value}</span><span class="sl">{t.label}</span></div>))}</div></div></section>
+  <section class="cs"><div class="cc">
+    <h2 class="st">薪酬数据 <span class="ss">2026年国内FDE/CAIO年薪</span></h2>
+    <div class="tw"><table class="dt"><thead><tr><th>城市</th><th>FDE年薪</th><th>CAIO年薪</th></tr></thead><tbody>{salaryData.map(r => (<tr><td>{r.city}</td><td class="hc">{r.fde}</td><td class="ha">{r.caio}</td></tr>))}</tbody></table></div>
+    <h3 class="st2">按行业分布</h3>
+    <div class="tw"><table class="dt"><thead><tr><th>行业</th><th>FDE</th><th>CAIO</th></tr></thead><tbody>{industryData.map(r => (<tr><td>{r.industry}</td><td class="hc">{r.fde}</td><td class="ha">{r.caio}</td></tr>))}</tbody></table></div>
+    <div class="ic"><h4>🌍 海外对标</h4><ul><li>美国CAIO中位总包：<strong>$1.6M</strong></li><li>Base薪酬：$250K - $450K</li><li>顶级企业总包可达 $2M+</li></ul></div>
+  </div></section>
+  <section class="cs"><div class="cc"><h2 class="st">趋势预测</h2><div class="tl">{forecast.map((f,i) => (<div class="ti"><span class="tn">{String(i+1).padStart(2,'0')}</span><p>{f}</p></div>))}</div></div></section>
+  <section class="cs"><div class="cc">
+    <h2 class="st">系统化学习路径 <span class="ss">从0到1的成长阶梯</span></h2>
+    <div class="pl">{phases.map(p => (<div class="pc" style={`border-left:4px solid ${p.color}`}><div class="ph"><div class="pm"><span class="pt" style={`color:${p.color}`}>{p.phase}</span><span class="pti">{p.time}</span></div><span class="plv" style={`background:${p.color}20;color:${p.color}`}>{p.level}</span></div><h3>{p.title}</h3><div class="skl">{p.skills.map(s => (<div class="ski"><span class="skd" style={`background:${p.color}`}></span><span>{s}</span></div>))}</div><p class="pg"><span class="gl">目标：</span>{p.goal}</p></div>))}</div>
+  </div></section>
+  <section class="cms"><div class="cc"><CommunityBox /></div></section>
+</main><Footer /></Layout>
+<style>
+  .page-hero{position:relative;padding:6rem 1.5rem 4rem;text-align:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(45,212,255,0.06) 0%,transparent 60%)}
+  .hero-content{position:relative;z-index:1;max-width:700px;margin:0 auto}
+  .badge{display:inline-block;padding:.35rem 1rem;background:rgba(45,212,255,.1);color:#2DD4FF;border:1px solid rgba(45,212,255,.2);border-radius:20px;font-size:.8rem;font-weight:500;margin-bottom:1.5rem}
+  .page-hero h1{font-size:3rem;font-weight:700;color:#F5F7FA;margin-bottom:1rem}
+  .gradient-text{background:linear-gradient(135deg,#2DD4FF,#FF7A29);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .page-hero .subtitle{color:rgba(245,247,250,.5);font-size:1.1rem}
+  .cs{padding:2rem 1.5rem}.cc{max-width:896px;margin:0 auto}
+  .st{color:#F5F7FA;font-size:1.6rem;font-weight:700;margin-bottom:1.5rem}.ss{color:rgba(245,247,250,.4);font-size:.95rem;font-weight:400;margin-left:.75rem}
+  .st2{color:#F5F7FA;font-size:1.2rem;font-weight:600;margin:2rem 0 1rem}
+  .stat-hl{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  .sc{padding:1.5rem;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s}
+  .sc:hover{border-color:rgba(45,212,255,.2);transform:translateY(-2px)}
+  .sv{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:#2DD4FF;margin-bottom:.4rem}
+  .sl{color:rgba(245,247,250,.5);font-size:.8rem}
+  .tw{overflow-x:auto;margin-bottom:1rem}
+  .dt{width:100%;border-collapse:collapse}
+  .dt th{padding:.75rem 1rem;text-align:left;font-size:.8rem;color:rgba(245,247,250,.5);border-bottom:1px solid rgba(255,255,255,.08);text-transform:uppercase;letter-spacing:.5px}
+  .dt td{padding:.75rem 1rem;font-size:.95rem;color:rgba(245,247,250,.7);border-bottom:1px solid rgba(255,255,255,.04)}
+  .hc{color:#2DD4FF;font-weight:600}.ha{color:#FF7A29;font-weight:600}
+  .ic{padding:1.5rem 2rem;margin-top:1.5rem;background:rgba(45,212,255,.04);border:1px solid rgba(45,212,255,.1);border-radius:12px}
+  .ic h4{color:#F5F7FA;font-size:1.1rem;margin-bottom:.75rem}
+  .ic ul{list-style:none;padding:0;margin:0}.ic li{color:rgba(245,247,250,.7);font-size:.95rem;padding:.3rem 0}.ic strong{color:#2DD4FF}
+  .tl{display:flex;flex-direction:column;gap:1rem}
+  .ti{display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;transition:all .3s}
+  .ti:hover{border-color:rgba(255,122,41,.2)}
+  .tn{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:#FF7A29;opacity:.6}
+  .ti p{color:rgba(245,247,250,.8);font-size:.95rem;margin:0}
+  .pl{display:flex;flex-direction:column;gap:1.25rem}
+  .pc{padding:1.75rem 2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:0 14px 14px 0;transition:all .3s}
+  .pc:hover{background:rgba(255,255,255,.05)}
+  .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+  .pm{display:flex;align-items:center;gap:1rem}
+  .pt{font-weight:600;font-size:.9rem}.pti{color:rgba(245,247,250,.4);font-size:.85rem;font-family:'Space Grotesk',sans-serif}
+  .plv{padding:.2rem .7rem;border-radius:6px;font-size:.75rem;font-weight:600}
+  .pc h3{color:#F5F7FA;font-size:1.25rem;margin-bottom:1rem}
+  .skl{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+  .ski{display:flex;align-items:center;gap:.75rem;color:rgba(245,247,250,.7);font-size:.9rem}
+  .skd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .pg{padding:.75rem 1rem;background:rgba(255,255,255,.03);border-radius:8px;color:rgba(245,247,250,.6);font-size:.85rem}
+  .gl{color:#F5F7FA;font-weight:600}
+  .cms{padding:2rem 1.5rem 0}.cms .cc{max-width:896px;margin:0 auto}
+  @media(max-width:768px){.page-hero h1{font-size:2.2rem}.stat-hl{grid-template-columns:repeat(2,1fr)}.pc{padding:1.25rem}.ph{flex-direction:column;align-items:flex-start;gap:.5rem}}
+</style>
