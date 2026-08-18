@@ -3,18 +3,93 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import CommunityBox from '../components/CommunityBox.astro';
+
+// 国内薪资数据（城市维度）
 const salaryData = [
   { city: '北京', fde: '50-120万', caio: '120-300万' },{ city: '上海', fde: '45-110万', caio: '110-280万' },
   { city: '深圳', fde: '45-100万', caio: '100-260万' },{ city: '广州', fde: '35-80万', caio: '80-200万' },
   { city: '杭州', fde: '40-90万', caio: '90-220万' },{ city: '成都', fde: '30-70万', caio: '70-160万' },
 ];
+
+// 国内行业维度
 const industryData = [
-  { industry: '互联网', fde: '50-120万', caio: '120-300万' },{ industry: '金融', fde: '45-100万', caio: '100-250万' },
-  { industry: '制造', fde: '35-80万', caio: '80-180万' },{ industry: '咨询', fde: '40-90万', caio: '90-200万' },
+  { industry: '互联网大厂', role: '高级 FDE', monthly: '¥35K-55K', annual: '¥50W-80W', city: '北京·深圳', mode: '混合', exp: '5-8年' },
+  { industry: '金融科技', role: '资深 FDE', monthly: '¥40K-60K', annual: '¥60W-90W', city: '上海·北京', mode: '现场', exp: '6-10年' },
+  { industry: '智能制造', role: 'FDE 工程师', monthly: '¥25K-40K', annual: '¥35W-55W', city: '苏州·东莞', mode: '现场', exp: '3-6年' },
+  { industry: '政企数字化', role: 'AI 落地顾问', monthly: '¥20K-35K', annual: '¥30W-50W', city: '广州·武汉', mode: '混合', exp: '3-5年' },
+  { industry: '外资/出海', role: 'FDE', monthly: '¥35K-50K', annual: '¥55W-75W', city: '上海·深圳', mode: '混合', exp: '4-7年' },
+  { industry: '咨询/服务商', role: 'FDE 顾问', monthly: '¥25K-45K', annual: '¥40W-65W', city: '一线·新一线', mode: '出差', exp: '4-8年' },
+  { industry: '传统企业转型', role: 'AI 应用工程师', monthly: '¥18K-30K', annual: '¥25W-45W', city: '全国新一线', mode: '现场', exp: '2-5年' },
+  { industry: '创业公司', role: '创始级 FDE', monthly: '¥30K-50K+期权', annual: '¥45W-70W+', city: '一线', mode: '混合', exp: '5年+' },
 ];
+
+// 海外 FDE 薪资数据库 - 来源：fde.today/salary
+const overseasFDEData = [
+  { company: 'OpenAI', level: 'Senior FDE', base: '$300K', tc: '$700K', location: 'San Francisco, CA', style: '现场', yoe: '8年' },
+  { company: 'Anthropic', level: 'Senior FDE', base: '$275K', tc: '$600K', location: 'San Francisco, CA', style: '混合', yoe: '7年' },
+  { company: 'Databricks', level: 'Staff FDE', base: '$260K', tc: '$520K', location: 'San Francisco, CA', style: '混合', yoe: '10年' },
+  { company: 'Palantir', level: 'Lead/Manager', base: '$280K', tc: '$500K', location: 'New York, NY', style: '混合', yoe: '10年' },
+  { company: 'Databricks', level: 'Senior FDE', base: '$220K', tc: '$400K', location: 'San Francisco, CA', style: '混合', yoe: '7年' },
+  { company: 'Palantir', level: 'Senior FDE', base: '$240K', tc: '$380K', location: 'New York, NY', style: '混合', yoe: '6年' },
+  { company: 'Stripe', level: 'Senior FDE', base: '$225K', tc: '$370K', location: 'San Francisco, CA', style: '远程', yoe: '7年' },
+  { company: 'Scale AI', level: 'Senior FDE', base: '$210K', tc: '$360K', location: 'San Francisco, CA', style: '混合', yoe: '5年' },
+  { company: 'Anduril', level: 'Senior FDE', base: '$200K', tc: '$340K', location: 'Costa Mesa, CA', style: '现场', yoe: '5年' },
+  { company: 'HashiCorp', level: 'Senior FDE', base: '$200K', tc: '$320K', location: 'San Francisco, CA', style: '远程', yoe: '8年' },
+  { company: 'Datadog', level: 'Senior FDE', base: '$195K', tc: '$310K', location: 'New York, NY', style: '混合', yoe: '6年' },
+  { company: 'MongoDB', level: 'Senior FDE', base: '$190K', tc: '$295K', location: 'Austin, TX', style: '远程', yoe: '6年' },
+  { company: 'Snowflake', level: 'Mid FDE', base: '$175K', tc: '$280K', location: 'San Mateo, CA', style: '混合', yoe: '4年' },
+  { company: 'Palantir', level: 'Mid FDE', base: '$180K', tc: '$270K', location: 'Palo Alto, CA', style: '混合', yoe: '3年' },
+  { company: 'Scale AI', level: 'Mid FDE', base: '$170K', tc: '$260K', location: 'New York, NY', style: '混合', yoe: '3年' },
+  { company: 'Confluent', level: 'Mid FDE', base: '$165K', tc: '$250K', location: 'Remote, US', style: '远程', yoe: '4年' },
+  { company: 'Cohere', level: 'Mid FDE', base: '$155K', tc: '$230K', location: 'Toronto, Canada', style: '混合', yoe: '3年' },
+  { company: 'Palantir', level: 'Junior FDE', base: '$145K', tc: '$195K', location: 'Washington, DC', style: '现场', yoe: '1年' },
+];
+
+// GSDC 2026 FDE 薪酬矩阵 - 来源：GSDC Global Skill Development Council
+const gsdcMatrix = [
+  { level: 'L3 · Entry', palantir: '$190K', openai: '$310K', anthropic: '$300K', databricks: '$250K' },
+  { level: 'L4 · Mid', palantir: '$245K', openai: '$470K', anthropic: '$420K', databricks: '$410K' },
+  { level: 'L5 · Senior', palantir: '$325K', openai: '$700K', anthropic: '$600K', databricks: '$657K' },
+  { level: 'L6 · Staff', palantir: '$440K', openai: '$1.00M', anthropic: '$850K', databricks: '$1.04M' },
+  { level: 'L7 · Principal+', palantir: '$630K', openai: '$1.35M', anthropic: '$1.15M', databricks: '$1.74M' },
+];
+
+// 薪酬构成拆解 - 来源：deployed.fyi / fdecomp.com
+const compBreakdown = [
+  { company: 'McKinsey (QuantumBlack)', tier: '咨询', level: 'Staff/Principal', base: '$400K', equity: '—', bonus: '$300K', total: '$700K' },
+  { company: 'OpenAI', tier: '前沿实验室', level: 'Staff/Principal', base: '$340K', equity: '$250K', bonus: '$40K', total: '$630K' },
+  { company: 'Anthropic', tier: '前沿实验室', level: 'Staff/Principal', base: '$375K', equity: '$200K', bonus: '$20K', total: '$595K' },
+  { company: 'Palantir', tier: 'AI规模企业', level: 'Staff/Principal', base: '$240K', equity: '$180K', bonus: '$20K', total: '$440K' },
+  { company: 'Sierra', tier: 'AI规模企业', level: 'Senior', base: '$290K', equity: '$120K', bonus: '$30K', total: '$440K' },
+  { company: 'Scale AI', tier: 'AI规模企业', level: 'Senior', base: '$235K', equity: '$200K', bonus: '$0K', total: '$435K' },
+  { company: 'OpenAI', tier: '前沿实验室', level: 'Senior', base: '$280K', equity: '$120K', bonus: '$20K', total: '$420K' },
+  { company: 'Anthropic', tier: '前沿实验室', level: 'Senior', base: '$300K', equity: '$120K', bonus: '$0K', total: '$420K' },
+  { company: 'Anduril', tier: 'AI规模企业', level: 'Senior', base: '$200K', equity: '$80K', bonus: '$20K', total: '$300K' },
+  { company: 'Cohere', tier: 'AI规模企业', level: 'Senior', base: '$220K', equity: '$90K', bonus: '$20K', total: '$330K' },
+  { company: 'Deloitte', tier: '四大', level: 'Senior SA', base: '$190K', equity: '—', bonus: '$30K', total: '$220K' },
+];
+
+// 2025 vs 2026 涨幅 - 来源：GSDC 2026报告
+const yearOverYear = [
+  { level: 'L3 · Entry', tc2025: '$250K', tc2026: '$263K', delta: '+5%' },
+  { level: 'L4 · Mid', tc2025: '$354K', tc2026: '$386K', delta: '+9%' },
+  { level: 'L5 · Senior', tc2025: '$514K', tc2026: '$571K', delta: '+11%' },
+  { level: 'L6 · Staff', tc2025: '$744K', tc2026: '$833K', delta: '+12%' },
+  { level: 'L7 · Principal+', tc2025: '$1.07M', tc2026: '$1.22M', delta: '+14%' },
+];
+
+// 职级跃迁路径 - 来源：GSDC 2026报告
+const levelProgression = [
+  { level: 'L3', title: 'Execute', desc: '执行交付，证明可靠性', color: '#2DD4FF' },
+  { level: 'L4', title: 'Own a deployment', desc: '独立拥有一个落地项目', color: '#2DD4FF' },
+  { level: 'L5', title: 'Own a customer', desc: '对客户结果负责', color: '#FF7A29' },
+  { level: 'L6', title: 'Own a portfolio', desc: '管理一组客户/项目', color: '#FF7A29' },
+  { level: 'L7', title: 'Own the strategy', desc: '主导战略，七位数总包', color: '#FF7A29' },
+];
+
 const trends = [
   { value: '+300%', label: 'Agent开发需求增长' },{ value: '+200%', label: 'AI产品经理需求增长' },
-  { value: '+150%', label: 'AI基础设施需求增长' },{ value: '$1.6M', label: '美国CAIO中位总包' },
+  { value: '+150%', label: 'AI基础设施需求增长' },{ value: '$571K', label: '海外Senior FDE中位总包' },
 ];
 const forecast = ['FDE薪酬预计继续上涨15-20%','远程FDE模式兴起，跨地域部署成为常态','AI认证证书价值提升10-20%','自由FDE日薪5,000-15,000元'];
 const phases = [
@@ -27,20 +102,164 @@ const phases = [
 ---
 <Layout title="行业洞察 | AfterAI FDE学院">
 <Navbar /><main>
-  <section class="page-hero"><div class="hero-bg"></div><div class="hero-content"><span class="badge">行业洞察</span><h1>FDE <span class="gradient-text">行业洞察</span></h1><p class="subtitle">薪酬数据、行业研报与系统化学习路径</p></div></section>
-  <section class="cs"><div class="cc"><div class="stat-hl">{trends.map(t => (<div class="sc"><span class="sv">{t.value}</span><span class="sl">{t.label}</span></div>))}</div></div></section>
-  <section class="cs"><div class="cc">
-    <h2 class="st">薪酬数据 <span class="ss">2026年国内FDE/CAIO年薪</span></h2>
-    <div class="tw"><table class="dt"><thead><tr><th>城市</th><th>FDE年薪</th><th>CAIO年薪</th></tr></thead><tbody>{salaryData.map(r => (<tr><td>{r.city}</td><td class="hc">{r.fde}</td><td class="ha">{r.caio}</td></tr>))}</tbody></table></div>
-    <h3 class="st2">按行业分布</h3>
-    <div class="tw"><table class="dt"><thead><tr><th>行业</th><th>FDE</th><th>CAIO</th></tr></thead><tbody>{industryData.map(r => (<tr><td>{r.industry}</td><td class="hc">{r.fde}</td><td class="ha">{r.caio}</td></tr>))}</tbody></table></div>
-    <div class="ic"><h4>🌍 海外对标</h4><ul><li>美国CAIO中位总包：<strong>$1.6M</strong></li><li>Base薪酬：$250K - $450K</li><li>顶级企业总包可达 $2M+</li></ul></div>
+  <!-- Hero -->
+  <section class="page-hero"><div class="hero-bg"></div><div class="hero-content">
+    <span class="badge">行业洞察</span>
+    <h1>FDE <span class="gradient-text">薪酬洞察</span></h1>
+    <p class="subtitle">整合国内外权威数据源，为企业预算与个人职业规划提供参考</p>
   </div></section>
+
+  <!-- Trends -->
+  <section class="cs"><div class="cc"><div class="stat-hl">{trends.map(t => (<div class="sc"><span class="sv">{t.value}</span><span class="sl">{t.label}</span></div>))}</div></div></section>
+
+  <!-- ====== 国内薪资 ====== -->
+  <section class="cs"><div class="cc">
+    <h2 class="st">国内 FDE 薪酬参考 <span class="ss">2026年 · 按行业/角色/城市</span></h2>
+    <p class="src-note">数据综合公开招聘信息、行业调研与社区反馈，受地区、企业规模、个人能力影响较大，仅供决策参考。</p>
+
+    <div class="highlight-box">
+      <div class="hl-num">¥180W+</div>
+      <div class="hl-label">国内 FDE 负责人/总监级年薪上限（含长期激励）</div>
+    </div>
+
+    <h3 class="st2">按行业 × 角色级别</h3>
+    <div class="tw"><table class="dt">
+      <thead><tr><th>行业/企业类型</th><th>角色级别</th><th>月薪区间</th><th>年薪区间</th><th>代表城市</th><th>工作形态</th><th>经验</th></tr></thead>
+      <tbody>{industryData.map(r => (<tr>
+        <td>{r.industry}</td><td>{r.role}</td>
+        <td class="hc">{r.monthly}</td><td class="ha">{r.annual}</td>
+        <td>{r.city}</td><td>{r.mode}</td><td>{r.exp}</td>
+      </tr>))}</tbody>
+    </table></div>
+
+    <h3 class="st2">按城市层级</h3>
+    <div class="tw"><table class="dt"><thead><tr><th>城市</th><th>FDE年薪</th><th>CAIO年薪</th></tr></thead><tbody>{salaryData.map(r => (<tr><td>{r.city}</td><td class="hc">{r.fde}</td><td class="ha">{r.caio}</td></tr>))}</tbody></table></div>
+
+    <div class="ic">
+      <h4>💡 薪酬构成（国内典型占比）</h4>
+      <div class="comp-bars">
+        <div class="comp-bar"><div class="cb-fill" style="width:65%"><span class="cb-label">固定月薪 (Base)</span><span class="cb-val">60-70%</span></div></div>
+        <div class="comp-bar"><div class="cb-fill" style="width:25%"><span class="cb-label">绩效/项目奖金</span><span class="cb-val">20-30%</span></div></div>
+        <div class="comp-bar"><div class="cb-fill" style="width:15%"><span class="cb-label">股权/期权</span><span class="cb-val">0-15%</span></div></div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ====== GSDC 2026 海外薪酬矩阵 ====== -->
+  <section class="cs"><div class="cc">
+    <h2 class="st">海外权威薪酬矩阵 <span class="ss">GSDC 2026 FDE 报告</span></h2>
+    <p class="src-note">来源 <a href="https://gsdcdata.gsdcouncil.org/gsdc/pdf/GSDC-2026-FDE-Salary-Report.pdf" target="_blank" rel="noopener">GSDC 2026 FDE Salary Report</a> · 20个薪酬单元（L3-L7 × Palantir / OpenAI / Anthropic / Databricks），总包 = Base + RSU + Bonus · 单位 USD</p>
+
+    <div class="highlight-box dual">
+      <div><div class="hl-num">$190K–$1.74M</div><div class="hl-label">L3→L7 全职级总包区间</div></div>
+      <div><div class="hl-num" style="color:#FF7A29">+5%~+14%</div><div class="hl-label">2025→2026 总包涨幅</div></div>
+    </div>
+
+    <h3 class="st2">职级 × 公司 总包矩阵</h3>
+    <div class="tw"><table class="dt matrix-table">
+      <thead><tr><th>职级 Level</th><th>Palantir</th><th>OpenAI</th><th>Anthropic</th><th>Databricks</th></tr></thead>
+      <tbody>{gsdcMatrix.map(r => (<tr>
+        <td class="level-cell">{r.level}</td>
+        <td>{r.palantir}</td><td class="hc">{r.openai}</td><td>{r.anthropic}</td><td class="hc">{r.databricks}</td>
+      </tr>))}</tbody>
+    </table></div>
+    <p class="matrix-note">总包（TC）对比：每个职级前沿实验室（OpenAI / Anthropic / Databricks）均高于纯落地型 Palantir，差距几乎全部来自 RSU；职级越高，差距越大。</p>
+
+    <h3 class="st2">2025 → 2026 涨幅（按职级）</h3>
+    <div class="tw"><table class="dt">
+      <thead><tr><th>职级</th><th>2025 TC</th><th>2026 TC</th><th>涨幅</th></tr></thead>
+      <tbody>{yearOverYear.map(r => (<tr>
+        <td>{r.level}</td><td>{r.tc2025}</td><td class="hc">{r.tc2026}</td><td class="ha">{r.delta}</td>
+      </tr>))}</tbody>
+    </table></div>
+    <p class="matrix-note">越高级涨得越多 — 稀缺性在 Senior+ 最为尖锐， proven ROI 是 2026 溢价核心。</p>
+
+    <h3 class="st2">职级跃迁路径</h3>
+    <div class="progression">{levelProgression.map(l => (<div class="prog-step" style={`border-left-color:${l.color}`}>
+      <span class="prog-level" style={`color:${l.color}`}>{l.level}</span>
+      <span class="prog-title">{l.title}</span>
+      <span class="prog-desc">{l.desc}</span>
+    </div>))}</div>
+    <p class="matrix-note">每升一级总包约 ×1.5；最大杠杆是「定级」— 把工作范围锚定到更高一级再谈 offer。</p>
+  </div></section>
+
+  <!-- ====== 海外 FDE 薪资数据库 ====== -->
+  <section class="cs"><div class="cc">
+    <h2 class="st">海外 FDE 薪资数据库 <span class="ss">真实样本 · 按总包排列</span></h2>
+    <p class="src-note">来源 <a href="https://www.fde.today/salary" target="_blank" rel="noopener">fde.today/salary</a> · 匿名众包薪酬数据 · 单位 USD · 采集时间 2026年1-2月</p>
+
+    <div class="highlight-box">
+      <div class="hl-num">$315K</div>
+      <div class="hl-label">FDE 中位总包（20个样本）</div>
+    </div>
+
+    <div class="tw"><table class="dt">
+      <thead><tr><th>公司</th><th>级别</th><th>Base 底薪</th><th>Total Comp 总包</th><th>城市</th><th>形态</th><th>年限</th></tr></thead>
+      <tbody>{overseasFDEData.map(r => (<tr>
+        <td class="company-cell">{r.company}</td><td>{r.level}</td>
+        <td>{r.base}</td><td class="hc">{r.tc}</td>
+        <td>{r.location}</td><td>{r.style}</td><td>{r.yoe}</td>
+      </tr>))}</tbody>
+    </table></div>
+
+    <div class="ic" style="background:rgba(255,122,41,.04);border-color:rgba(255,122,41,.15)">
+      <h4>🌏 海外 vs 国内</h4>
+      <ul>
+        <li>海外 Senior FDE 总包普遍 <strong>$35W-$70W</strong>（约 ¥250W-500W），约为国内的 <strong>3-6倍</strong></li>
+        <li>溢价核心来自一线科技城市（湾区/纽约）的地域红利与 RSU/期权激励</li>
+        <li>Junior 起薪（$195K）已接近国内 Senior 水平</li>
+        <li>1 USD ≈ 7.2 CNY（参考汇率）</li>
+      </ul>
+    </div>
+  </div></section>
+
+  <!-- ====== 薪酬构成拆解 ====== -->
+  <section class="cs"><div class="cc">
+    <h2 class="st">薪酬构成拆解 <span class="ss">Base · Equity · Bonus · Total OTE</span></h2>
+    <p class="src-note">来源 <a href="https://www.fdecomp.com/" target="_blank" rel="noopener">deployed.fyi / fdecomp.com</a> · FDE 与 SA 按公司/类型的薪酬结构拆解 · 单位 USD</p>
+
+    <div class="tw"><table class="dt">
+      <thead><tr><th>公司</th><th>类型</th><th>级别</th><th>Base</th><th>Equity/yr</th><th>Bonus</th><th>Total OTE</th></tr></thead>
+      <tbody>{compBreakdown.map(r => (<tr>
+        <td class="company-cell">{r.company}</td><td>{r.tier}</td><td>{r.level}</td>
+        <td>{r.base}</td><td class="eq-cell">{r.equity}</td><td>{r.bonus}</td><td class="ha">{r.total}</td>
+      </tr>))}</tbody>
+    </table></div>
+
+    <div class="ic">
+      <h4>🔑 Equity 是 L4 以上的真正故事</h4>
+      <ul>
+        <li>Base 在 L4 之后基本走平，<strong>RSU 承担主要缩放</strong></li>
+        <li>Senior（L5）股权占 TC 比例：Databricks 61% / OpenAI 58% / Anthropic 52% / Palantir 41%</li>
+        <li>同为 Senior，选对雇主的股权结构，总包可差出近 <strong>2 倍</strong></li>
+        <li>FDE 股权 vs 咨询：差距 <strong>7-14倍</strong>（Pre-IPO 实验室股权年化远超咨询公司）</li>
+      </ul>
+    </div>
+  </div></section>
+
+  <!-- ====== 趋势预测 ====== -->
   <section class="cs"><div class="cc"><h2 class="st">趋势预测</h2><div class="tl">{forecast.map((f,i) => (<div class="ti"><span class="tn">{String(i+1).padStart(2,'0')}</span><p>{f}</p></div>))}</div></div></section>
+
+  <!-- ====== 学习路径 ====== -->
   <section class="cs"><div class="cc">
     <h2 class="st">系统化学习路径 <span class="ss">从0到1的成长阶梯</span></h2>
     <div class="pl">{phases.map(p => (<div class="pc" style={`border-left:4px solid ${p.color}`}><div class="ph"><div class="pm"><span class="pt" style={`color:${p.color}`}>{p.phase}</span><span class="pti">{p.time}</span></div><span class="plv" style={`background:${p.color}20;color:${p.color}`}>{p.level}</span></div><h3>{p.title}</h3><div class="skl">{p.skills.map(s => (<div class="ski"><span class="skd" style={`background:${p.color}`}></span><span>{s}</span></div>))}</div><p class="pg"><span class="gl">目标：</span>{p.goal}</p></div>))}</div>
   </div></section>
+
+  <!-- Data Sources -->
+  <section class="cs"><div class="cc">
+    <div class="sources-box">
+      <h4>📋 数据来源</h4>
+      <ul>
+        <li><a href="https://gsdcdata.gsdcouncil.org/gsdc/pdf/GSDC-2026-FDE-Salary-Report.pdf" target="_blank" rel="noopener">GSDC 2026 FDE Salary Report</a> — 20个薪酬单元，L3-L7 × 4家公司完整 Base/RSU/Bonus 拆分</li>
+        <li><a href="https://www.fde.today/salary" target="_blank" rel="noopener">fde.today/salary</a> — 匿名众包 FDE 薪酬数据库，20个真实样本</li>
+        <li><a href="https://www.fdecomp.com/" target="_blank" rel="noopener">deployed.fyi / fdecomp.com</a> — FDE & SA 薪酬构成拆解（Levels.fyi、各公司招聘页等，2026/5）</li>
+        <li>数据锚点：Levels.fyi (May 2026)、Glassdoor (2026)、Blind</li>
+      </ul>
+      <p class="disclaimer">* 本页薪资为综合公开招聘信息、行业调研与市场反馈的参考区间，非官方报价。受地区、企业规模、个人能力与持证情况影响较大，仅供决策参考。更新于 2026年8月。</p>
+    </div>
+  </div></section>
+
   <section class="cms"><div class="cc"><CommunityBox /></div></section>
 </main><Footer /></Layout>
 <style>
@@ -51,27 +270,69 @@ const phases = [
   .page-hero h1{font-size:3rem;font-weight:700;color:#F5F7FA;margin-bottom:1rem}
   .gradient-text{background:linear-gradient(135deg,#2DD4FF,#FF7A29);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .page-hero .subtitle{color:rgba(245,247,250,.5);font-size:1.1rem}
-  .cs{padding:2rem 1.5rem}.cc{max-width:896px;margin:0 auto}
-  .st{color:#F5F7FA;font-size:1.6rem;font-weight:700;margin-bottom:1.5rem}.ss{color:rgba(245,247,250,.4);font-size:.95rem;font-weight:400;margin-left:.75rem}
+  .cs{padding:2rem 1.5rem}.cc{max-width:960px;margin:0 auto}
+  .st{color:#F5F7FA;font-size:1.6rem;font-weight:700;margin-bottom:.5rem}.ss{color:rgba(245,247,250,.4);font-size:.95rem;font-weight:400;margin-left:.75rem}
   .st2{color:#F5F7FA;font-size:1.2rem;font-weight:600;margin:2rem 0 1rem}
+  .src-note{color:rgba(245,247,250,.4);font-size:.85rem;margin-bottom:1.5rem;line-height:1.6}
+  .src-note a{color:#2DD4FF;text-decoration:none;border-bottom:1px solid rgba(45,212,255,.3)}
+  .src-note a:hover{border-bottom-color:#2DD4FF}
+
+  /* Stats */
   .stat-hl{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
   .sc{padding:1.5rem;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s}
   .sc:hover{border-color:rgba(45,212,255,.2);transform:translateY(-2px)}
   .sv{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:#2DD4FF;margin-bottom:.4rem}
   .sl{color:rgba(245,247,250,.5);font-size:.8rem}
+
+  /* Highlight box */
+  .highlight-box{padding:1.5rem 2rem;margin-bottom:1.5rem;background:linear-gradient(135deg,rgba(45,212,255,.06),rgba(255,122,41,.04));border:1px solid rgba(45,212,255,.12);border-radius:14px;text-align:center}
+  .highlight-box.dual{display:flex;gap:2rem;justify-content:center}
+  .highlight-box.dual > div{flex:1}
+  .hl-num{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:#2DD4FF;margin-bottom:.3rem}
+  .hl-label{color:rgba(245,247,250,.5);font-size:.9rem}
+
+  /* Tables */
   .tw{overflow-x:auto;margin-bottom:1rem}
   .dt{width:100%;border-collapse:collapse}
-  .dt th{padding:.75rem 1rem;text-align:left;font-size:.8rem;color:rgba(245,247,250,.5);border-bottom:1px solid rgba(255,255,255,.08);text-transform:uppercase;letter-spacing:.5px}
-  .dt td{padding:.75rem 1rem;font-size:.95rem;color:rgba(245,247,250,.7);border-bottom:1px solid rgba(255,255,255,.04)}
+  .dt th{padding:.75rem 1rem;text-align:left;font-size:.8rem;color:rgba(245,247,250,.5);border-bottom:1px solid rgba(255,255,255,.08);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+  .dt td{padding:.75rem 1rem;font-size:.9rem;color:rgba(245,247,250,.7);border-bottom:1px solid rgba(255,255,255,.04)}
   .hc{color:#2DD4FF;font-weight:600}.ha{color:#FF7A29;font-weight:600}
+  .level-cell{font-weight:600;color:#F5F7FA;white-space:nowrap}
+  .company-cell{font-weight:600;color:#F5F7FA}
+  .eq-cell{color:#2DD4FF}
+  .matrix-table td:nth-child(3),.matrix-table td:nth-child(5){font-weight:600}
+
+  /* Matrix note */
+  .matrix-note{color:rgba(245,247,250,.4);font-size:.85rem;margin:.5rem 0 1rem;line-height:1.5}
+
+  /* Progression */
+  .progression{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+  .prog-step{display:flex;align-items:center;gap:1rem;padding:.75rem 1.25rem;background:rgba(255,255,255,.03);border-left:3px solid;border-radius:0 10px 10px 0;transition:all .3s}
+  .prog-step:hover{background:rgba(255,255,255,.05)}
+  .prog-level{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.9rem;min-width:30px}
+  .prog-title{color:#F5F7FA;font-weight:600;font-size:.95rem;min-width:160px}
+  .prog-desc{color:rgba(245,247,250,.5);font-size:.85rem}
+
+  /* Comp bars */
+  .comp-bars{display:flex;flex-direction:column;gap:.75rem;margin-top:.5rem}
+  .comp-bar{height:32px;background:rgba(255,255,255,.04);border-radius:8px;overflow:hidden;position:relative}
+  .cb-fill{height:100%;background:linear-gradient(90deg,rgba(45,212,255,.15),rgba(45,212,255,.25));border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;min-width:120px}
+  .cb-label{color:rgba(245,247,250,.7);font-size:.8rem}
+  .cb-val{color:#2DD4FF;font-weight:600;font-size:.85rem;font-family:'Space Grotesk',sans-serif}
+
+  /* Info box */
   .ic{padding:1.5rem 2rem;margin-top:1.5rem;background:rgba(45,212,255,.04);border:1px solid rgba(45,212,255,.1);border-radius:12px}
   .ic h4{color:#F5F7FA;font-size:1.1rem;margin-bottom:.75rem}
-  .ic ul{list-style:none;padding:0;margin:0}.ic li{color:rgba(245,247,250,.7);font-size:.95rem;padding:.3rem 0}.ic strong{color:#2DD4FF}
+  .ic ul{list-style:none;padding:0;margin:0}.ic li{color:rgba(245,247,250,.7);font-size:.9rem;padding:.35rem 0;line-height:1.5}.ic strong{color:#2DD4FF}
+
+  /* Timeline */
   .tl{display:flex;flex-direction:column;gap:1rem}
   .ti{display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;transition:all .3s}
   .ti:hover{border-color:rgba(255,122,41,.2)}
   .tn{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:#FF7A29;opacity:.6}
   .ti p{color:rgba(245,247,250,.8);font-size:.95rem;margin:0}
+
+  /* Phases */
   .pl{display:flex;flex-direction:column;gap:1.25rem}
   .pc{padding:1.75rem 2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:0 14px 14px 0;transition:all .3s}
   .pc:hover{background:rgba(255,255,255,.05)}
@@ -85,6 +346,23 @@ const phases = [
   .skd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
   .pg{padding:.75rem 1rem;background:rgba(255,255,255,.03);border-radius:8px;color:rgba(245,247,250,.6);font-size:.85rem}
   .gl{color:#F5F7FA;font-weight:600}
-  .cms{padding:2rem 1.5rem 0}.cms .cc{max-width:896px;margin:0 auto}
-  @media(max-width:768px){.page-hero h1{font-size:2.2rem}.stat-hl{grid-template-columns:repeat(2,1fr)}.pc{padding:1.25rem}.ph{flex-direction:column;align-items:flex-start;gap:.5rem}}
+
+  /* Sources */
+  .sources-box{padding:2rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px}
+  .sources-box h4{color:#F5F7FA;font-size:1.1rem;margin-bottom:1rem}
+  .sources-box ul{list-style:none;padding:0;margin:0 0 1rem}
+  .sources-box li{color:rgba(245,247,250,.5);font-size:.85rem;padding:.35rem 0;line-height:1.5}
+  .sources-box a{color:#2DD4FF;text-decoration:none;border-bottom:1px solid rgba(45,212,255,.3)}
+  .sources-box a:hover{border-bottom-color:#2DD4FF}
+  .disclaimer{color:rgba(245,247,250,.3);font-size:.8rem;line-height:1.5;margin-top:.5rem}
+
+  .cms{padding:2rem 1.5rem 0}.cms .cc{max-width:960px;margin:0 auto}
+  @media(max-width:768px){
+    .page-hero h1{font-size:2.2rem}
+    .stat-hl{grid-template-columns:repeat(2,1fr)}
+    .pc{padding:1.25rem}.ph{flex-direction:column;align-items:flex-start;gap:.5rem}
+    .highlight-box.dual{flex-direction:column;gap:1rem}
+    .prog-step{flex-wrap:wrap;gap:.5rem}
+    .prog-title{min-width:auto}
+  }
 </style>
